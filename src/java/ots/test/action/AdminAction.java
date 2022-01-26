@@ -1,20 +1,35 @@
-package ots.test.beans;
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+package ots.test.action;
+
+import java.sql.ResultSet;
+import ots.test.beans.Admin;
+import ots.test.dao.Admindao;
 
 /**
  *
  * @author prasun
  */
-public class Admin {
+public class AdminAction {
     private int adminId;
     private String adminPassword;
     private String adminName;
     private String adminEmail;
     private boolean validAdmin;
+    private String msg = "";
+   
+    public String login() throws Exception {
+         Admin admin = new Admin();
+        Admin  validAdmin = Admindao.validateLoginCredentials(admin); 
+        if(validAdmin.isValidAdmin()){
+            setMsg("Welcome");
+        }else{
+            setMsg("Error");
+        }
+        return "Login";
+    }
 
     /**
      * @return the adminId
@@ -86,6 +101,24 @@ public class Admin {
         this.validAdmin = validAdmin;
     }
 
+    /**
+     * @return the msg
+     */
+    public String getMsg() {
+        return msg;
+    }
 
+    /**
+     * @param msg the msg to set
+     */
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    /**
+     * @return the admin
+     */
+   
+    
     
 }

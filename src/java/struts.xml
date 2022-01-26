@@ -3,8 +3,11 @@
 "http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>
-    <include file="example.xml"/>
+    
     <!-- Configuration for the default package. -->
     <package name="default" extends="struts-default">
+         <action name="loginadmin" class="ots.test.action.AdminAction" method="login">
+            <result name="Login">/</result>
+        </action>
     </package>
 </struts>
