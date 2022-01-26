@@ -28,7 +28,7 @@ public class AdminAction {
         }else{
             setMsg("Error");
         }
-        return "Login";
+        return "LoginAdmin";
     }
 
     /**
