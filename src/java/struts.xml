@@ -7,7 +7,7 @@
     <!-- Configuration for the default package. -->
     <package name="default" extends="struts-default">
          <action name="loginadmin" class="ots.test.action.AdminAction" method="login">
-            <result name="Login">/</result>
+            <result name="LoginAdmin">/</result>
         </action>
     </package>
 </struts>
