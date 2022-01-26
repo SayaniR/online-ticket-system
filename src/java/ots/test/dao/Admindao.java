@@ -13,7 +13,7 @@ import ots.test.beans.Admin;
 
 /**
  *
- * @author aquiB
+ * @author Prasun
  */
 public class Admindao {
     public static Admin validateLoginCredentials(Admin admin) {
