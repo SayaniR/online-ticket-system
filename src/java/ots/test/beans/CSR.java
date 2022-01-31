@@ -14,7 +14,7 @@ public class CSR {
     private String csrPassword;
     private String csrName;
     private String csrEmail;
-
+    private boolean validCsr;
     /**
      * @return the csrId
      */
@@ -69,6 +69,20 @@ public class CSR {
      */
     public void setCsrEmail(String csrEmail) {
         this.csrEmail = csrEmail;
+    }
+
+    /**
+     * @return the validCsr
+     */
+    public boolean isValidCsr() {
+        return validCsr;
+    }
+
+    /**
+     * @param validCsr the validCsr to set
+     */
+    public void setValidCsr(boolean validCsr) {
+        this.validCsr = validCsr;
     }
 
     

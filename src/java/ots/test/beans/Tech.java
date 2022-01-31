@@ -4,45 +4,17 @@ package ots.test.beans;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 /**
  *
  * @author prasun
  */
 public class Tech {
-    private int techId;
-    private String techPassword;
+
     private String techName;
     private String techEmail;
+    private String techPassword;
     private String ticketLevel;
-
-    /**
-     * @return the techId
-     */
-    public int getTechId() {
-        return techId;
-    }
-
-    /**
-     * @param techId the techId to set
-     */
-    public void setTechId(int techId) {
-        this.techId = techId;
-    }
-
-    /**
-     * @return the techPassword
-     */
-    public String getTechPassword() {
-        return techPassword;
-    }
-
-    /**
-     * @param techPassword the techPassword to set
-     */
-    public void setTechPassword(String techPassword) {
-        this.techPassword = techPassword;
-    }
+    private boolean validTech;
 
     /**
      * @return the techName
@@ -73,6 +45,20 @@ public class Tech {
     }
 
     /**
+     * @return the techPassword
+     */
+    public String getTechPassword() {
+        return techPassword;
+    }
+
+    /**
+     * @param techPassword the techPassword to set
+     */
+    public void setTechPassword(String techPassword) {
+        this.techPassword = techPassword;
+    }
+
+    /**
      * @return the ticketLevel
      */
     public String getTicketLevel() {
@@ -86,5 +72,17 @@ public class Tech {
         this.ticketLevel = ticketLevel;
     }
 
-    
+    /**
+     * @return the validTech
+     */
+    public boolean isValidTech() {
+        return validTech;
+    }
+
+    /**
+     * @param validTech the validTech to set
+     */
+    public void setValidTech(boolean validTech) {
+        this.validTech = validTech;
+    }
 }

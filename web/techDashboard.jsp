@@ -1,5 +1,6 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="s" uri="/struts-tags"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -16,22 +17,21 @@
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" >Welcome <c:out value='${sessionScope.adminname}'/>
-            </a>
+            <a class="navbar-brand ps-3" >Welcome <c:out value='${sessionScope.techname}'/></a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-                
+
             </form>
             <!-- Navbar-->
             <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        
-                        
-                        <li><a class="dropdown-item" href="logoutadmin">Logout</a></li>
+
+
+                        <li><a class="dropdown-item" href="logoutTech">Logout</a></li>
                     </ul>
                 </li>
             </ul>
@@ -41,42 +41,87 @@
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
-                            
-                            <a class="nav-link" href="adminDashboard.jsp">
+
+                            <a class="nav-link" href="techDashboard.jsp">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
-                            
+
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                                 <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                                Add
+                                Action
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
                             <div class="collapse" id="collapsePages" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
                                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                                        <a class="nav-link" href="addCsr.jsp">New CSR </a>
-                                            <a class="nav-link" href="addTech.jsp">New Technician</a>
-                                        
+                                        <a class="nav-link" href="techFeedback.jsp">Add Feedback </a>
+                                        <a class="nav-link" href="viewUserFeedback.jsp">View Feedback</a>
+
                                     </a>
-                                    
-                                    
+
+
                                 </nav>
                             </div>
-                            
+
                         </div>
                     </div>
-                    
+
                 </nav>
             </div>
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Hello Admin, </h1>
+                        <h1 class="mt-4">Hello Technician,</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">welcome to your profile!</li>
+                            <li class="breadcrumb-item active">here are your tickets</li>
                         </ol>
-                        
+                        <s:form action="displayticket" method="post">
+                            <s:textfield label="Email" name="techEmail" readonly="true"/>
+                            <s:submit cssClass="button-register" value="View Issues" />
+
+                        </s:form>
+                        <s:if test="true">
+
+                            <s:iterator value="issueListNew">
+                                <table>
+                                    <thead>
+                                        <tr style="background-color: #E0E0E1;">
+                                            <th>Issue Id</th>
+                                            <th>Tech Email</th>
+                                            <th>Issue type</th>
+                                            <th>Issue Description</th>
+                                            <th>Equipment Type</th>
+                                            <th>Ticket Level</th>
+                                            <th>Ticket Status</th>
+                                            <th>Date Caused</th>
+                                            <th>Tentative Date</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tr>
+                                        <td><s:property value="issueId" /></td>
+                                        <td><s:property value="techEmail" /></td>
+                                        <td><s:property value="issueType" /></td>
+                                        <td><s:property value="issueDescription" /></td>
+                                        <td><s:property value="equipmentType" /></td>
+                                        <td><s:property value="ticketLevel" /></td>
+                                        <td><s:property value="ticketStatus" /></td>
+                                        <td><s:property value="dateCaused" /></td>
+                                        <td><s:property value="tentativeDates" /></td>
+                                        <td><a href="updateissue.action?submitType=updatedata&issueId=<s:property value="issueId"/>">
+                                                <button class="button-update">Update</button>
+                                            </a>
+                                        </td>
+
+                                    </tr>
+                                </table>
+                            </s:iterator>
+
+                        </s:if>
+                        <s:else>
+                            <div style="color: red;">No Data Found.</div>
+                        </s:else>
                     </div>
                 </main>
 <!--                <footer class="py-4 bg-light mt-auto">

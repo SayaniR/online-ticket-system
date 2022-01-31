@@ -4,30 +4,62 @@
  */
 package ots.test.action;
 
+import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.ActionSupport;
 import java.sql.ResultSet;
+import java.util.Map;
 import ots.test.beans.Admin;
-import ots.test.dao.Admindao;
+import ots.test.dao.AdminDao;
 
 /**
  *
  * @author prasun
  */
-public class AdminAction {
+public class AdminAction extends ActionSupport {
+
     private int adminId;
     private String adminPassword;
     private String adminName;
     private String adminEmail;
     private boolean validAdmin;
+    private AdminDao admindao = null;
     private String msg = "";
-   
-    public String login() throws Exception {
-         Admin admin = new Admin();
-        Admin  validAdmin = Admindao.validateLoginCredentials(admin); 
-        if(validAdmin.isValidAdmin()){
-            setMsg("Welcome");
-        }else{
+
+    private String login = "";
+//private String LoginAdmin="success";
+
+    public String loginAdmin() throws Exception {
+        admindao = new AdminDao();
+
+        Admin admin = admindao.validateLoginCredentials(adminEmail, adminPassword);
+        System.out.println("login Action " + admin);
+        if (admin != null) {
+            adminId = admin.getAdminId();
+            adminPassword = admin.getAdminPassword();
+//adminName = admin.getAdminName();
+            adminEmail = admin.getAdminEmail();
+            Map<String, Object> session = ActionContext.getContext().getSession();
+            session.put("adminname", admin.getAdminName());
+            return "LoginAdmin";
+//login = "LoginAdmin";
+        } else {
             setMsg("Error");
+            return "Failure";
+//login = "Failure";
         }
+
+//setMsg("Welcome");
+//return login;
+    }
+
+    public String logout() {
+        Map<String, Object> session = ActionContext.getContext().getSession();
+        session.remove("adminname");
+// if (session.containsKey("adminname")) {
+// session.remove("adminname");
+// //login = "Failure";
+// }
+        System.out.println("adminname");
         return "LoginAdmin";
     }
 
@@ -116,9 +148,20 @@ public class AdminAction {
     }
 
     /**
+     * @return the admindao
+     */
+    public AdminDao getAdmindao() {
+        return admindao;
+    }
+
+    /**
+     * @param admindao the admindao to set
+     */
+    public void setAdmindao(AdminDao admindao) {
+        this.admindao = admindao;
+    }
+
+    /**
      * @return the admin
      */
-   
-    
-    
 }

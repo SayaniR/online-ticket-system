@@ -5,6 +5,8 @@
  */
 package ots.test.beans;
 
+import java.util.Date;
+
 /**
  *
  * @author Home
@@ -15,6 +17,11 @@ public class IssueLodged {
     private String issueType;
     private String issueDescription;
     private String equipmentType;
+    private String ticketLevel;
+    private String techEmail;
+    private int ticketStatus;
+    private Date dateCaused;
+    private Date tentativeDates;
 
     /**
      * @return the issueId
@@ -70,6 +77,81 @@ public class IssueLodged {
      */
     public void setEquipmentType(String equipmentType) {
         this.equipmentType = equipmentType;
+    }
+
+    /**
+     * @return the ticketLevel
+     */
+    public String getTicketLevel() {
+        return ticketLevel;
+    }
+
+    /**
+     * @param ticketLevel the ticketLevel to set
+     */
+    public void setTicketLevel(String ticketLevel) {
+        this.ticketLevel = ticketLevel;
+    }
+
+    /**
+     * @return the techName
+     */
+    
+
+    /**
+     * @return the ticketStatus
+     */
+    public int getTicketStatus() {
+        return ticketStatus;
+    }
+
+    /**
+     * @param ticketStatus the ticketStatus to set
+     */
+    public void setTicketStatus(int ticketStatus) {
+        this.ticketStatus = ticketStatus;
+    }
+
+    /**
+     * @return the dateCaused
+     */
+    public Date getDateCaused() {
+        return dateCaused;
+    }
+
+    /**
+     * @param dateCaused the dateCaused to set
+     */
+    public void setDateCaused(Date dateCaused) {
+        this.dateCaused = dateCaused;
+    }
+
+    /**
+     * @return the tentativeDates
+     */
+    public Date getTentativeDates() {
+        return tentativeDates;
+    }
+
+    /**
+     * @param tentativeDates the tentativeDates to set
+     */
+    public void setTentativeDates(Date tentativeDates) {
+        this.tentativeDates = tentativeDates;
+    }
+
+    /**
+     * @return the techEmail
+     */
+    public String getTechEmail() {
+        return techEmail;
+    }
+
+    /**
+     * @param techEmail the techEmail to set
+     */
+    public void setTechEmail(String techEmail) {
+        this.techEmail = techEmail;
     }
 
 }

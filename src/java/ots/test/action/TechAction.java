@@ -4,99 +4,85 @@
  */
 package ots.test.action;
 
+//import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 import ots.test.beans.Tech;
-import ots.test.dao.Techdao;
+import ots.test.dao.TechDao;
 
 /**
  *
  * @author a-cube
  */
 public class TechAction extends ActionSupport{
-    private String msg = "";
-    private int ctr = 0;
-    
-    private int techId;
+
     private String techName;
     private String techEmail;
     private String techPassword;
     private String ticketLevel;
-    
-    private String submitType;
+    private TechDao techdao = null;
+    private boolean validTech;
+    private String msg = "";
+    private int ctr = 0;
+    private String login = "";
 
-    private static long serialVersionUID = 6329394260276112660L;
-    private ResultSet rs = null;
-    private Tech tech = null;
-    private List<Tech> techList = null;
-    private Techdao admin = new Techdao();
-    private boolean noData = false;
+    public String loginTech() throws Exception {
 
-    
-    public String getAllTech() throws Exception {
+        techdao = new TechDao();
+        Tech validTech = techdao.validateLoginCredentials(techEmail, techPassword);
+        System.out.println("login Action " + validTech);
+        if (validTech != null) {
+            techName = validTech.getTechName();
+            techEmail = validTech.getTechEmail();
+            techPassword = validTech.getTechPassword();
+            ticketLevel = validTech.getTicketLevel();
+            Map<String, Object> session = ActionContext.getContext().getSession();
+            session.put("techname", validTech.getTechName());
+            login = "LoginTech";
+        } else {
+            setMsg("Error");
+            login = "FailureTech";
+        }
+        return login;
+    }
+
+    public String logout() {
+        Map<String, Object> session = ActionContext.getContext().getSession();
+        session.remove("techname");
+// if (session.containsKey("adminname")) {
+// session.remove("adminname");
+// //login = "Failure";
+// }
+        System.out.println("techname");
+        return "LogoutTech";
+    }
+    public String registerTech() {
+
+        TechDao tech = new TechDao();
+
         try {
-            setTechList(new ArrayList<>());
-            setTechList(admin.techList());
-            
-
-            if (!techList.isEmpty() ) {
-                setNoData(false);
-                System.out.println("Users retrieve = "+getTechList().size());
-                System.out.println("setting nodata=false");
+            setCtr(tech.addTech(getTechName(), getTechEmail(), getTechPassword(), getTicketLevel()));
+            if (getCtr() > 0) {
+                setMsg("Tech Added");
             } else {
-                setNoData(true);
+                setMsg("Unable to add");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "TECHLIST";
+        return "RegisterTech";
+    }
+
+    public boolean isValidTech() {
+        return validTech;
     }
 
     /**
-     * @return the techList
+     * @param validTech the validTech to set
      */
-    public List<Tech> getTechList() {
-        return techList;
-    }
-
-    /**
-     * @param techList the techList to set
-     */
-    public void setTechList(List<Tech> techList) {
-        this.techList = techList;
-    }
-
-    /**
-     * @return the noData
-     */
-    public boolean isNoData() {
-        return noData;
-    }
-
-    /**
-     * @param noData the noData to set
-     */
-    public void setNoData(boolean noData) {
-        this.noData = noData;
-    }
-
-
-public String addTech(){
-        Techdao tech = new Techdao();
-        try{
-            setCtr(tech.addTech(getTechName(), getTechEmail(), getPassword(), getTicketLevel()));
-            if (getCtr() > 0) {
-                setMsg("Tech Added Successfull");
-            } else {
-                setMsg("Some error");
-            }
-            
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        return "ADDED";
+    public void setValidTech(boolean validTech) {
+        this.validTech = validTech;
     }
 
     /**
@@ -125,20 +111,6 @@ public String addTech(){
      */
     public void setCtr(int ctr) {
         this.ctr = ctr;
-    }
-
-    /**
-     * @return the techId
-     */
-    public int getTechId() {
-        return techId;
-    }
-
-    /**
-     * @param techId the techId to set
-     */
-    public void setTechId(int techId) {
-        this.techId = techId;
     }
 
     /**
@@ -172,14 +144,14 @@ public String addTech(){
     /**
      * @return the techPassword
      */
-    public String getPassword() {
+    public String getTechPassword() {
         return techPassword;
     }
 
     /**
      * @param techPassword the techPassword to set
      */
-    public void setPassword(String techPassword) {
+    public void setTechPassword(String techPassword) {
         this.techPassword = techPassword;
     }
 
@@ -193,106 +165,8 @@ public String addTech(){
     /**
      * @param ticketLevel the ticketLevel to set
      */
-    public void setAvailability(String ticketLevel) {
+    public void setTicketLevel(String ticketLevel) {
         this.ticketLevel = ticketLevel;
     }
 
-    /**
-     * @return the serialVersionUID
-     */
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
-    /**
-     * @param aSerialVersionUID the serialVersionUID to set
-     */
-    public static void setSerialVersionUID(long aSerialVersionUID) {
-        serialVersionUID = aSerialVersionUID;
-    }
-
-    /**
-     * @return the rs
-     */
-    public ResultSet getRs() {
-        return rs;
-    }
-
-    /**
-     * @param rs the rs to set
-     */
-    public void setRs(ResultSet rs) {
-        this.rs = rs;
-    }
-
-    /**
-     * @return the tech
-     */
-    public Tech getTech() {
-        return tech;
-    }
-
-    /**
-     * @param tech the tech to set
-     */
-    public void setTech(Tech tech) {
-        this.tech = tech;
-    }
-
-    /**
-     * @return the admin
-     */
-    public Techdao getAdmin() {
-        return admin;
-    }
-
-    /**
-     * @param admin the admin to set
-     */
-    public void setAdmin(Techdao admin) {
-        this.admin = admin;
-    }
- public String updateTech(){
-        Techdao tech=new Techdao();
-        try {
-            if (getSubmitType().equals("updatedata")) {
-                Tech pro =tech.fetchTechDetails(techId);
-                if (pro != null) {
-                    techId = pro.getTechId();
-                    techName = pro.getTechName();
-                    techEmail = pro.getTechEmail();
-                    techPassword = pro.getTechPassword();
-                    ticketLevel =pro.getTicketLevel();
-                }
-            } 
-                else {
-                System.out.println("in else part Tech Name: "+techName);
-                int i = tech.updateTechDetails(techId, techName, techEmail, techPassword, ticketLevel);
-                if (i > 0) {
-                    msg = "Record Updated Successfuly";
-                } else {
-                    msg = "error";
-                }
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "UPDATE";
-    }
-
-    /**
-     * @return the submitType
-     */
-    public String getSubmitType() {
-        return submitType;
-    }
-
-    /**
-     * @param submitType the submitType to set
-     */
-    public void setSubmitType(String submitType) {
-        this.submitType = submitType;
-    }
-    
 }

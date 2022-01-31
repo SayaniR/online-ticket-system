@@ -1,18 +1,22 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package ots.test.beans;
 
+import java.util.Date;
+
 /**
  *
- * @author prasun
+ * @author Home
  */
 public class UserDisplay {
+
     private int issueId;
-    private String serviceDate;
+    private Date serviceDate;
     private String serviceDescription;
-    private int ticketStatus;
+    private String ticketStatus;
 
     /**
      * @return the issueId
@@ -31,14 +35,14 @@ public class UserDisplay {
     /**
      * @return the serviceDate
      */
-    public String getServiceDate() {
+    public Date getServiceDate() {
         return serviceDate;
     }
 
     /**
      * @param serviceDate the serviceDate to set
      */
-    public void setServiceDate(String serviceDate) {
+    public void setServiceDate(Date serviceDate) {
         this.serviceDate = serviceDate;
     }
 
@@ -59,14 +63,20 @@ public class UserDisplay {
     /**
      * @return the ticketStatus
      */
-    public int getTicketStatus() {
+    public String getTicketStatus() {
         return ticketStatus;
     }
 
     /**
      * @param ticketStatus the ticketStatus to set
      */
-    public void setTicketStatus(int ticketStatus) {
+    public void setTicketStatus(String ticketStatus) {
         this.ticketStatus = ticketStatus;
     }
+
+    /**
+     * @return the ticketStatus
+     */
+    
+
 }

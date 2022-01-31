@@ -6,8 +6,64 @@
     
     <!-- Configuration for the default package. -->
     <package name="default" extends="struts-default">
-         <action name="loginadmin" class="ots.test.action.AdminAction" method="login">
-            <result name="LoginAdmin">/</result>
+        <action name="loginadmin" class="ots.test.action.AdminAction" method="loginAdmin">
+            <result name="LoginAdmin">/adminDashboard.jsp</result>
+            <result name="Failure">/welcomePage.jsp</result>
         </action>
+        <action name="logoutadmin" class="ots.test.action.AdminAction" method="logout">
+            <result name="LoginAdmin">/welcomePage.jsp</result>
+        </action>
+        <action name="loginCsr" class="ots.test.action.CsrAction" method="csrLogin">
+            <result name="LoginCsr">/csrDashboard.jsp</result>
+            <result name="FailureCsr">/welcomePage.jsp</result>
+        </action>
+        <action name="logoutCsr" class="ots.test.action.CsrAction" method="logout">
+            <result name="LogoutCsr">/welcomePage.jsp</result>
+        </action>
+        <action name="registerissue" class="ots.test.action.IssueLodgedAction" method="create">
+            <result name="REGISTERISSUE">/issueRegister.jsp</result>
+        </action>
+        <action name="logincsr" class="ots.test.action.IssueLodgedAction" method="show">
+            <result name="SHOWISSUE">/csrDashboard.jsp</result>
+        </action>
+        <action name="displayticket" class="ots.test.action.IssueLodgedAction" method="showToTech">
+            <result name="SHOWISSUETOTECH">/techDashboard.jsp</result>
+        </action>
+        <action name="updateissue" class="ots.test.action.IssueLodgedAction" method="update">
+            <result name="UPDATEISSUE">/issueUpdate.jsp</result>
+        </action>
+        <action name="logintech" class="ots.test.action.TechAction" method="loginTech">
+            <result name="LoginTech">/techDashboard.jsp</result>
+            <result name="FailureTech">/welcomePage.jsp</result>
+        </action>
+        <action name="logoutTech" class="ots.test.action.TechAction" method="logout">
+            <result name="LogoutTech">/welcomePage.jsp</result>
+        </action>
+        <action name="registertech" class="ots.test.action.TechAction" method="registerTech">
+            <result name="RegisterTech">/</result>
+        </action>
+       
+        <action name="registercsr" class="ots.test.action.CsrAction" method="registerCsr">
+            <result name="RegisterCsr">/</result>
+        </action>
+        <action name="trackuserdetails" class="ots.test.action.UserDisplayAction" method="show">
+            <result name="SHOWUSERDISPLAY">/userDisplay.jsp</result>
+        </action>
+        <action name="userdisplayentered" class="ots.test.action.UserDisplayAction" method="userDisplayEnter">
+            <result name="USERDISPLAYENTERED">/userDisplayUpdate.jsp</result>
+        </action>
+        <action name="userfeedback" class="ots.test.action.FeedbackUserAction" method="TechFeedback">
+            <result name="UserFeedback">/userFeedback.jsp</result>
+        </action>
+        <action name="showuserfeedback" class="ots.test.action.FeedbackUserAction" method="showUserFeedback">
+            <result name="showuserFeedback">/viewUserFeedback.jsp</result>
+        </action>
+        <action name="techfeedback" class="ots.test.action.FeedbackTechAction" method="TechFeedback">
+            <result name="TechFeedback">/techFeedback.jsp</result>
+        </action>
+        <action name="showfeedback" class="ots.test.action.FeedbackTechAction" method="showTechFeedback">
+            <result name="showfeedback">/viewTechFeedback.jsp</result>
+        </action>
+        
     </package>
 </struts>

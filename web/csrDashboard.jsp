@@ -1,6 +1,8 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="s" uri="/struts-tags"%>
 <!DOCTYPE html>
+
 <html lang="en">
     <head>
         <meta charset="utf-8" />
@@ -16,7 +18,7 @@
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" >Welcome <c:out value='${sessionScope.adminname}'/>
+            <a class="navbar-brand ps-3" >Welcome <c:out value='${sessionScope.csrname}'/>
             </a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
@@ -31,7 +33,7 @@
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         
                         
-                        <li><a class="dropdown-item" href="logoutadmin">Logout</a></li>
+                        <li><a class="dropdown-item" href="logoutCsr">Logout</a></li>
                     </ul>
                 </li>
             </ul>
@@ -42,21 +44,21 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             
-                            <a class="nav-link" href="adminDashboard.jsp">
+                            <a class="nav-link" href="csrDashboard.jsp">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
                             
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                                 <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                                Add
+                                Action
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
                             <div class="collapse" id="collapsePages" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
                                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                                        <a class="nav-link" href="addCsr.jsp">New CSR </a>
-                                            <a class="nav-link" href="addTech.jsp">New Technician</a>
+                                        <a class="nav-link" href="issueRegister.jsp">New Ticket</a>
+                                            <a class="nav-link" href="userDisplayUpdate.jsp">User Display</a>
                                         
                                     </a>
                                     
@@ -72,11 +74,52 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Hello Admin, </h1>
+                        <h1 class="mt-4">Hello CSR,</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">welcome to your profile!</li>
+                            <li class="breadcrumb-item active">here are all the issues</li>
                         </ol>
+                        <s:form action="logincsr" method="post">
+                            <s:textfield label="Email" name="csrEmail" readonly="true"/>
+                            <s:submit cssClass="button-register" value="View Tickets" />
+
+                        </s:form>
+                        <br>
+                        <s:if test="true">
+                            <table>
+                                <thead>
+                        <tr style="background-color: #E0E0E1;">
+                            <th>Issue Id &nbsp; &nbsp; &nbsp;&nbsp;</th>
+                            <th>Issue Type &nbsp;&nbsp; &nbsp;&nbsp;</th>
+                            <th>Issue Description &nbsp;&nbsp; &nbsp;&nbsp;</th>
+                            <th>Equipment Type &nbsp;&nbsp; &nbsp;&nbsp;</th>
+                            <th>Ticket Level &nbsp;&nbsp; &nbsp;&nbsp;</th>
+                            <th>Tech Email &nbsp;&nbsp; &nbsp;&nbsp;</th>
+                            <th>Ticket Status &nbsp;&nbsp; &nbsp;&nbsp;</th>
+                            <th>Date Caused &nbsp;&nbsp; &nbsp;&nbsp;</th>
+                            <th>Tentative Date &nbsp;&nbsp; &nbsp;&nbsp;</th>
+                            </tr>
+                    </thead>
+                            <s:iterator value="issueList">
+                            <tr>
+                        <td><s:property value="issueId" /></td>
+                        <td><s:property value="issueType" /></td>
+                        <td><s:property value="issueDescription" /></td>
+                        <td><s:property value="equipmentType" /></td>
+                        <td><s:property value="ticketLevel" /></td>
+                        <td><s:property value="techEmail" /></td>
+                        <td><s:property value="ticketStatus" /></td>
+                        <td><s:property value="dateCaused" /></td>
+                        <td><s:property value="tentativeDates" /></td>
                         
+                        
+                        </tr>
+                    </s:iterator>
+                            </table>
+                        </s:if>
+                        <s:else>
+                <div style="color: red;">No Data Found.</div>
+            </s:else>
+                        </div>
                     </div>
                 </main>
 <!--                <footer class="py-4 bg-light mt-auto">
